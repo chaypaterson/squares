@@ -1,0 +1,68 @@
+squares
+=======
+
+Which numbers cannot be formed as a sum of 2 squares?
+
+i.e. what n cannot be expressed
+
+    n = a^2 + b^2
+
+for integer a,b?
+
+This is an exercise in scheme.
+
+Brute force algorithm:
+======================
+
+individually, a and b must both be smaller than n. So we could just check all
+integers smaller than n, or use some symmetry arguments to halve the number.
+If we brutally check all integers a in (0,n) and b in (0,n), this will take
+O(n^2) time.
+
+This is silly, though, because the largest number that a could be (if b was
+zero) is sqrt(n), which is much smaller than n when n is large.
+
+Less brutal algorithm:
+======================
+
+So a better method would be to check all the integers in a circle of radius
+sqrt(n) around zero. The area of this (quarter or eighth) of a circle is
+proportional to n: so this will take O(n) time. That's quite good.
+
+So this slightly better algorithm could go:
+    * generate a list of all pairs of integers with a^2+b^2 <= n
+    * eliminate all entries that satisfy a^2+b^2 < n
+    * get the length of this list.
+    * if it is zero, print n.
+
+Even less brutal algorithm:
+===========================
+
+Generate a list of integers that are very close to the edge of the circle
+(all within 1 step).
+
+Start at (x,0), with x = floor(sqrt(n)). Face east (1,0).
+
+    Define function = x^2+y^2 - n.
+    Each turn, take one step forward and change direction as follows:
+    While function < 0 turn right, else turn left.
+    When y>x, stop adding candidates.
+
+Then, go through the above (eliminate a^2+b^2 <n, get length, if zero...) for
+this list.
+
+Because this new list consists only of pairs near the edge of the circle, it
+should run in O(sqrt(n)) time. There is a hard lower bound on the number of
+candidates (because of the taxicab geometry) of sqrt(2)*sqrt(n).
+
+Notes:
+  * This is how I ended up solving the problem.
+  * The list of squares to visit is indeed O(sqrt(n)): asymptotically it is
+    VERY close to 2*sqrt(n) exactly, not sure why.
+  * I don't have a proof the walk is exhaustive (always crosses all possible
+    zeroes) but it does produce a list of integers that can't be written as
+    the sum of two squares that agrees with the literature on OEIS.
+  * The visualisation also works for the generated walks. The lines could
+    possibly be cleaned up: need to brush up on my postscript specification.
+
+
