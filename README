@@ -69,14 +69,15 @@ Notes:
   * I now have a proof that the walker exhausts all possible locations of
     zeroes of h on the lattice if the level sets of the height function:
         1. Do not have concavities wider than sqrt(2) times the lattice
-           spacing and deeper than 1/sqrt(2) times the lattice spacing
-        2. Do not have "necks" narrower than sqrt(2) times the lattice spacing
+           spacing and deeper than 1/sqrt(2) times the lattice spacing.
+        2. Do not have "necks" narrower than sqrt(2) times the lattice
+           spacing.
+
   * For the specific problem at hand (h = a^2 + b^2 - n) and related problems,
     it is sufficient that
         1. Level sets are convex (they are circles so this is fine)
-        2. n>1 (n=1 is trivial so this is fine)
-  * Condition 2 is actually too strong, because this algorithm visits all the
-    possible zeroes for n=1 anyway.
+        2. Minimum diameter > sqrt(2) (which implies n>1/sqrt(2))
+    This applies to all cases with n >= 1.
 
 TODO: type up proof (it is combinatorial: the idea is that there is a finite
 number of ways that zeroes of any h on the lattice can be missed, and these
