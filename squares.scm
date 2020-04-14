@@ -1,12 +1,18 @@
-;;;; generate list of pairs of integers close to a^2+b^2=5 with b<a
+;;;; squares.scm
+;;;; find a list of numbers that cannot be written as a sum of 2 squares
+
+;;; overview:
+;;; 1. generate list of pairs of integers close to a^2+b^2=n with b<a
+;;; 2. scan this list for hits
+;;; 3. For a range of numbers n, check if they have no hits.
 
 ;;; the algorithm can be viewed geometrically in terms of an abstract walker
 ;;; with a "position" and a "direction". This walker moves around on an
 ;;; integer lattice, taking one step forward each turn, and then turning left
 ;;; if it has walked uphill last turn, and right otherwise.
 ;;; The walker starts close to a target altitude, facing a direction that
-;;; takes it across. It then wanders back and forth along the target altitude,
-;;; occasionally looping back on itself.
+;;; takes it above. It then wanders back and forth along the target altitude,
+;;; occasionally looping back on itself, until an end condition is met.
 
 ;; A walker's state looks like this:
 ;; (list (list a b) (list dirx diry))
